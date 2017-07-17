@@ -1,0 +1,2 @@
+https://github.com/Lewuathe/docker-hadoop-cluster
+http://blog.cloudera.com/blog/2015/12/docker-is-the-new-quickstart-option-for-apache-hadoop-and-cloudera/
