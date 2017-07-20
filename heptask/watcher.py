@@ -13,7 +13,18 @@
                xxxxxxxxxxxxxxxxxxx
 '''
 
-class Watcher(object):
+
+class Resource(object):
+    '''
+        Resource object that is filled by the task
+    '''
+    __slots__ = ['disk', 'cpu', 'memory', 'swap', 'network', 'processes']
+
+    def __init__(self):
+        pass
+
+
+class WatcherInfo(object):
     '''
         Stores
             - ID: pid(local), batch ID (batch), grid_url (grid)
@@ -24,6 +35,14 @@ class Watcher(object):
             - taskmon_url (if available)
             - status
     '''
+    __slots__ = ['id', 'executable',
+                 'resource_usage', 'resource_requests', 'host', 'host_ipv4',
+                 'host_ipv6', 'taskmon_url', 'status']
+
+
+
+class Watcher(object):
+    __slots__ = ['_info', '_task']
 
     def __init__(self, task):
         self._task = task
@@ -38,3 +57,7 @@ class Watcher(object):
     @property
     def id(self):
         self.__safe_info('id')
+
+    @property
+    def executable(self):
+        self.__safe_info('executable')
