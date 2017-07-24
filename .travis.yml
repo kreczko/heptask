@@ -1,0 +1,20 @@
+# travis-ci.org build & test configuration
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_install:
+  - pip install docker-compose
+  - docker pull cloudera/quickstart:latest
+  - docker pull kreczko/htcondor-in-a-box
+
+install:
+ - sudo docker-compose up -d
+ - sleep 30
+
+script:
+  - sudo docker exec htcondor "cd /code; nosetests -V"
+cache: apt

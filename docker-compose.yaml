@@ -1,0 +1,22 @@
+version: '3'
+services:
+  htcondor:
+    build:
+      context: .
+      dockerfile: docker/htcondor/Dockerfile
+      args:
+        DOCKER_FILES: docker/htcondor
+    image: kreczko/htcondor-in-a-box
+    volumes:
+      - .:/code
+    links:
+      - hdfs
+  hdfs:
+    build:
+      context: .
+      dockerfile: docker/hdfs/Dockerfile
+      args:
+        DOCKER_FILES: docker/hdfs
+    image: kreczko/hdfs-in-a-box
+    privileged: true
+    hostname: quickstart.cloudera
