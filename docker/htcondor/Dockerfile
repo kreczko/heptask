@@ -6,7 +6,8 @@ ARG DOCKER_FILES=docker
 ARG TEST_USER=testuser
 
 #htcondor needs keyboard configuration
-RUN apt install -y debconf-utils apt-utils keyboard-configuration sudo && \
+RUN apt install -y debconf-utils apt-utils keyboard-configuration sudo \
+                   inetutils-ping && \
     apt clean
 COPY ${DOCKER_FILES}/keylayout.conf /tmp/keylayout.conf
 RUN debconf-set-selections < /tmp/keylayout.conf && \
@@ -27,6 +28,9 @@ COPY ${DOCKER_FILES}/99_custom.conf /etc/condor/config.d/99_custom.conf
 
 WORKDIR /home/testuser
 COPY ${DOCKER_FILES}/start.sh /tmp/start.sh
+COPY requirements.txt /tmp/requirements.txt
+
+RUN pip install -r /tmp/requirements.txt
 
 USER ${TEST_USER}
 
