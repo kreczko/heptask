@@ -13,6 +13,7 @@ RUN apt update && apt install -y \
   sudo \
   inetutils-ping \
   && apt clean
+
 COPY ${DOCKER_FILES}/keylayout.conf /tmp/keylayout.conf
 RUN debconf-set-selections < /tmp/keylayout.conf && \
     dpkg-reconfigure keyboard-configuration -f noninteractive
